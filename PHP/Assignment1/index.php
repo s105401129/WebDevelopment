@@ -1,9 +1,20 @@
-<DOCTYPE html>
+<?php
+    $full_name="Joanne Davis"; # old           #student_name
+    $user_id=105401129;#old           #student_id
+    $user_type="student";
+    $swinburne_email= "$user_id@$user_type.swin.edu.au";
+    #MAYVBE ADD INT FOR IF TEACHER OR STUDENT BASE DON IF <div class="STUDENT"></div>
+    #if student in string then limited view
+    
+
+?>
+ 
+ <DOCTYPE html>
     <head>
-        <title>CampusConnect</title>
+        <title>CampusConnect Index Page</title>
         <meta charset="utf-8">
         <meta name="description" content="Index Page">
-        <meta name="keywords" content="HTML, CSS,PHP, JavaScript">
+        <meta name="keywords" content="HTML, CSS,PHP">
         <meta name="author" content="Joanne Davis">
         <!-- Styles and Links--->
          <link rel="stylesheet" href="Assets/css/styles.css">
@@ -11,10 +22,11 @@
 
     </head>
     <body>
-  
             <header><h1>CampusConnect</h1>
+
             <!--Nav bar--To be updated-->
             <nav>
+                <a href="index.php">Index</a><!--Add CSS to be different colour as its active page-->
                 <a href="eventform.php">Create Event</a>
                 <a href="searchform.php">Search Event</a>
                 <a href="about.php">About</a>
@@ -29,27 +41,30 @@
                   <main>
                     <!---Can we make this a seperate declartion insert??--->
                     <h2> Student Details</h2>
-                    <p>Full Name:</p>
-                    <p>Student ID:</p>
-                    <p>Email:</p>
-                    <p>I <b>Joanne Davis</b>declare that this assignment is my individual work</p>
+                    <p>Full Name: <?=$full_name?></p>
+                    <p>Student ID: <?=$user_id?></p>
+                    <p>Email: <?=$swinburne_email?></p>
+                    <!---The short hand way of writing 
+                          echo $variable     IS      < ?= $variable ?> -->
+                    <p>I <b><?=$full_name?></b> declare that this assignment is my individual work. 
+                    I have not worked collaboratively, nor have I copied from any other student's work or from any other source</p>
 
                 </main>
   <div style="width: 100px; height: 100px; background-color: #eae497;"></div>
 
 
-     
-
- 
 
     </body>
-    <?php
-
-
-
-
-
-    ?>
+    
 
 
 </DOCTYPE>
+
+
+<!----Notes
+
+Active Nav bar page should be Highlighted and underlined
+
+Store header Info as a seprerate php To avoid unnessary code rewrites
+
+-->
