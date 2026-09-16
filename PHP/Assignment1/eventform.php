@@ -1,15 +1,35 @@
 <?php
-  $event_id="";
-  $event_title="";
+  $event_id=$_POST['eventID'];
+  $event_title=$_POST['eventTitle'];
   $event_desc= "";
   $event_date= "";
-  $event_time= "";#Additional Element I created
   $event_cat= array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
-  $register_type= ""; # ALT  $registration_type= "";
+  $register_type= array("Free","Paid"); # ALT  $registration_type= "";
   $features= array("Catering","Certificate","Accessibility","WheelChair Accessible","Other");#Use case if Other for trigger
   $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
   #Formerly Buildings
-?>
+
+  function array_to_radio($element_id,$array,$is_radio){
+    #For each item in array create a radio element
+        if ($is_radio){
+            $type='radio';
+            $value=$array;
+        }
+    else{
+        $type= 'checkbox';}
+
+    foreach($array as $item){
+        echo "<label for='$item' class='form-check-label'>$item</label>";
+        echo "<input name=$element_id type=$type value=$item id =$item class='form-check-input'> ";
+    }}
+    
+
+
+  #experiment
+  #Case requires must start with E,
+ 
+  
+  ?>
  
  <DOCTYPE html>
     <head>
@@ -51,34 +71,45 @@
         <div class="" id="event_info"><!-- Event_info--->
             <form action="eventprocess.php" method="post">
                 <div class="event_info">
-                       
+                       <!--Add reference to checker agaisnt database for current active events, ie ONLY ID,alt scenario, 2 events exist with same name different ID-->
                         <div class="event_identifiers"> <!-- Event Identifiers -->
-                            <label for id="eventID">
-                                Event ID
-                            </label>
-                            <input type="text" id="eventID" name="eventID"> <!--Add reference to checker agaisnt database for current active ids-->
+                            <label for ="eventID" class="form-label">Event ID</label>
+                            <input type="text" id="eventID" name="eventID" maxlength="5" minlength="5" class="form-control"> <!--Add reference to checker agaisnt database for current active ids-->
                                 <!-- Event ID, E followed by 4 DIGITS, Add a EventElement for when 9999 events exist,  
                                  AutoGenerates is standard but assignment says Allow them to choose,
                                     MUST MAKE IT CHECK THAT Event ID DOES NOT ALREADY EXIST!!!!
-                                    Add Autogenertae button anyway 
-
-
                                  Realistically 9999 events are not going to exist at the same time, 
                                  If the company wants the ability to rollback updates and stores a copy of all past events, 
-                                 This is crucial
                                     Maybe It changes the letter before it to a different letter,
-                                    or stores as
-                                    EE, Instead of EE,
+                                    or stores as EE, Instead of EE,
                                     and a infinite Loop of E-afacation
                                     That way the fallback will have less trouble rather then having to do a whole system design later
                                  -->
+                            <label for ="eventTitle" class="form-label">Event Title</label>
+                                <input type="text" id="eventTitle" name="eventTitle" class="form-control"> 
                                 <!-- Event Title, A title-->
                         </div>
-                        <!-- Event Description, What its About, Whats involved, Max 260 char -->
-                        <!-- Event Date, The date of the event-->
-                        <!-- Event Time, The Time of the event-->
-                        <!-- -->
-                        <!-- -->
+                        <div class="form-group" id="event_info">
+                            <label for ="eventDesc" class="form-label">Description</label><!-- Event Description, What its About, Whats involved, Max 260 char -->
+                                <textarea id="eventDesc" name="eventDesc" maxlength="240" class="form-control"> </textarea>
+                            <label for ="eventDate" class="form-label">Date</label><!-- Event Date, The date of the event-->
+                                <input type="datetime-local" id="eventDate" name="eventDate" class="form-control"> 
+                            <!-- Event Date, The date of the event-->
+                            <span for="eventDate" class="form-label">Category</span>
+                                <?php array_to_radio('eventDate',$event_cat,true); ?> <!--Create the Radios for Event Category-->
+                            <!-- Registration Type -->
+                            <span for ="regType" class="form-label">Registration Type</span>
+                                <?php array_to_radio('regType',$register_type,true);?> <!--Create the Radios for Event Category-->
+                            <!--Available Features -->
+                            <span for ="features" class="form-label">Available Features </span>
+                                <?php array_to_radio('features',$features,false);?> <!--Create the Radios for Event Category-->
+                            <!--Location AKA which building-->
+                            <span for ="building" class="form-label">Location </span>
+                                <?php array_to_radio('building', $location, true);?> <!--Create the Radios for Event Category-->
+
+                        </div>
+                       
+                       
 
                 </div>
 

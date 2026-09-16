@@ -2,3 +2,18 @@
 {
     background-color: #ff5722 !important; 
 }
+
+#eventDesc{
+width:100%;
+height:6rem;
+
+}
+
+/*Overwriting Bootstrap*/
+.form-label{
+    display: block;
+    width: 100%;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
