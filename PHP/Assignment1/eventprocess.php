@@ -2,12 +2,14 @@
  #idea
 ##$input,'ID',5,'E[0-9]{4}'
     #Default Holders
-#--------------------------------------JO HERE WAS AI
+  #--------------------------------------JO HERE WAS AI
   #Asked AI HOW TO VISUALISE THE SUBMISSION OF A POST INSTANCE VIA ECHO STATEMENTS
     echo "<pre>";
     print_r($_POST);
-    echo "</pre>";
+    echo "<pre>";
   #--------------------------------------JO END OF AI HELP
+
+
 $errors=array();#WHERE ALL Validatione rrors will be stored
 $event_saved=false;#Indicator wether the event was succesfully stored
 
@@ -69,7 +71,8 @@ check_input($event_title,"Title",60,"/^[A-Za-z0-9 :,.'!\-]+$/",$errors);
 #Validate Event Desc
 check_input($event_title,"Description",260,"",$errors);
 #Validate Event Category 
-$allowed_categories = array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
+$allowed_categories =  array("Workshop","Seminar","Social");#,"Lab","Tutorial","Lecture");
+
 if (!in_array($event_category,$allowed_categories,true))
     {
         $errors[] ="Please select a valid Event Category.";
@@ -207,11 +210,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     <h1>Submission Errors</h1>
     <ul>
         <?php 
-        foreach ($errors as $error){
-            echo"
-            <li class='list-item' htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); 
-            </li>";
-            }
+        foreach ($errors as $error) {
+        echo "<li class='list-item'>". htmlspecialchars($error, ENT_QUOTES, "UTF-8"). "</li>";
+}
             ?>
     </ul>
 
@@ -224,15 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     <p>Event Description: <?php echo htmlspecialchars($event_desc, ENT_QUOTES, "UTF-8"); ?></p>
     <p>Event Category: <?php echo htmlspecialchars($event_category, ENT_QUOTES, "UTF-8"); ?></p>
     <p>Event Registration: <?php echo htmlspecialchars($registration_type, ENT_QUOTES, "UTF-8"); ?></p>
-    <p>Event Features:</p>
-
-<ul>
-    <?php foreach ($selected_features as $feature): ?>
-        <li>
-            <?php echo htmlspecialchars($feature, ENT_QUOTES, "UTF-8"); ?>
-        </li>
-    <?php endforeach; ?>
-</ul>></p>
+</p>
     <p>Event Date: <?php echo htmlspecialchars($event_date, ENT_QUOTES, "UTF-8"); ?></p>
 
 

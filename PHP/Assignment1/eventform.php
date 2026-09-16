@@ -1,7 +1,7 @@
 <?php
 
 $current_date = date('d/m/Y');
-$event_cat= array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
+$event_category= array("Workshop","Seminar","Social");#,"Lab","Tutorial","Lecture");
 $register_type= array("Free","Paid"); # ALT  $registration_type= "";
 $all_features= array("Catering","Certificate","Accessibility");#Use case if Other for trigger
 $locations=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
@@ -14,11 +14,15 @@ $locations=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which bui
     foreach($array as $item){
         if ($type!= "option"){
             echo "<label for=$item class='form-check-label'>$item</label>";
-            echo "<input name=$element_id type=$type value=$item id =$item class='form-check-input' > ";}
+            
+
+           echo "<input name=$element_id type=$type value=$item id=$item class='form-check-input' > ";}
+        
         else{
             echo "<option value=$item>$item</option>";
-        }}
-    }
+        }
+    }}
+    
   
 
 
@@ -110,13 +114,13 @@ $locations=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which bui
             <div class="row g-4">
                 <div class="col-md-6">        
                                 <!-- Event Category-->
-                            <span for="eventCategory" class="form-label">Category</span>
-                                <?php array_to_radio('eventCategory',$event_cat,'radio'); ?> <!--Create the Radios for Event Category-->
+                            <span  class="form-label">Category</span>
+                                <?php array_to_radio('eventCategory',$event_category,'radio'); ?> <!--Create the Radios for Event Category-->
                             <!-- Registration Type -->
-                            <span for ="registrationType" class="form-label">Registration Type</span>
+                            <span  class="form-label">Registration Type</span>
                                 <?php array_to_radio('registrationType',$register_type,'radio');?> <!--Create the Radios for Event Category-->
                             <!--Available Features -->
-                            <span for ="availableFeatures" class="form-label">Available Features </span>
+                            <span  class="form-label">Available Features </span>
                                 <?php array_to_radio('features',$all_features,'checkbox');?> <!--Create the Radios for Event Category-->
                             <!--Easier to just hardcode Other-->
                             <!---Refer to AI use for Error checking mismatch with trying to add a hidden section without Javascript,-->
