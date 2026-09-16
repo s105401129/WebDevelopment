@@ -19,23 +19,36 @@
         <!-- Styles and Links--->
          <link rel="stylesheet" href="Assets/css/styles.css">
          <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/059/656/570/non_2x/fresh-bagel-breakfast-bread-on-transparent-background-free-png.png" type="image/png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
 
     </head>
     <body>
             <header><h1>CampusConnect</h1>
+            <!--Resources used
+           https://getbootstrap.com/docs/5.0/components/navbar/
+-->
+             <!--Nav bar--To be updated-->
+          <nav class="navbar navbar-expand-lg bg-light justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active bg-light" href="index.php">Index</a><!--Add CSS to be different colour as its active page-->
+                    </li>
 
-            <!--Nav bar--To be updated-->
-            <nav>
-                <a href="index.php">Index</a><!--Add CSS to be different colour as its active page-->
-                <a href="eventform.php">Create Event</a>
-                <a href="searchform.php">Search Event</a>
-                <a href="about.php">About</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="eventform.php">Create Event</a><!--Add CSS to be different colour as its active page-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="searchform.php">Search Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.php">About</a></li>
+
                 <!---On all other pages The site that is missing replaces image
                 So it checks what page it is ie this is index.php
                 If index.php is in the list replace with the missing one,
                 ETC FOR lall others 
                 so that they do not have the option ot go back to the page they are currently on--->
-
+</ul>
             </nav>
         </header>
                   <main>
