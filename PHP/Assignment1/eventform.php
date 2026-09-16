@@ -1,33 +1,35 @@
 <?php
-  $event_id=$_POST['eventID'];
-  $event_title=$_POST['eventTitle'];
-  $event_desc= "";
-  $event_date= "";
-  $event_cat= array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
-  $register_type= array("Free","Paid"); # ALT  $registration_type= "";
-  $features= array("Catering","Certificate","Accessibility","WheelChair Accessible","Other");#Use case if Other for trigger
-  $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
+
+$current_date = date('d/m/Y');
+$event_cat= array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
+$register_type= array("Free","Paid"); # ALT  $registration_type= "";
+$features= array("Catering","Certificate","Accessibility","WheelChair Accessible");#Use case if Other for trigger
+$location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
   #Formerly Buildings
 
-  function array_to_radio($element_id,$array,$is_radio){
-    #For each item in array create a radio element
-        if ($is_radio){
-            $type='radio';
-            $value=$array;
-        }
-    else{
-        $type= 'checkbox';}
 
+
+  function array_to_radio($element_id,$array,$type){
+    #For each item in array create a radio element
     foreach($array as $item){
-        echo "<label for='$item' class='form-check-label'>$item</label>";
-        echo "<input name=$element_id type=$type value=$item id =$item class='form-check-input'> ";
-    }}
+        if ($type!= "option"){
+            echo "<label for='$item' class='form-check-label'>$item</label>";
+            echo "<input name=$element_id type=$type value=$item id =$item class='form-check-input' > ";}
+        else{
+            echo "<option value=$item>$item</option>";
+        }}
+    }
     
 
 
   #experiment
   #Case requires must start with E,
- 
+   
+
+
+
+ #Input pattern to check against and it does
+
   
   ?>
  
@@ -39,7 +41,8 @@
         <meta name="keywords" content="HTML, CSS, PHP">
         <meta name="author" content="Joanne Davis">
         <!-- Styles and Links--->
-         <link rel="stylesheet" href="Assets/css/styles.css">
+        <link rel="stylesheet" href="Assets/css/styles.css">
+        <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/059/656/570/non_2x/fresh-bagel-breakfast-bread-on-transparent-background-free-png.png" type="image/png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
     </head>
     <body>
@@ -52,7 +55,7 @@
                     </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Create Event</a><!--Add CSS to be different colour as its active page-->
+                    <a class="nav-link active" href="eventform.php">Create Event</a><!--Add CSS to be different colour as its active page-->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="searchform.php">Search Event</a>
@@ -74,7 +77,8 @@
                        <!--Add reference to checker agaisnt database for current active events, ie ONLY ID,alt scenario, 2 events exist with same name different ID-->
                         <div class="event_identifiers"> <!-- Event Identifiers -->
                             <label for ="eventID" class="form-label">Event ID</label>
-                            <input type="text" id="eventID" name="eventID" maxlength="5" minlength="5" class="form-control"> <!--Add reference to checker agaisnt database for current active ids-->
+                                 
+                            <input type="text" id="eventID" name="eventID" maxlength="5" minlength="5" class="form-control" pattern="E[0-9]{4}" placeholder="E0001" required> <!--Add reference to checker agaisnt database for current active ids-->
                                 <!-- Event ID, E followed by 4 DIGITS, Add a EventElement for when 9999 events exist,  
                                  AutoGenerates is standard but assignment says Allow them to choose,
                                     MUST MAKE IT CHECK THAT Event ID DOES NOT ALREADY EXIST!!!!
@@ -86,29 +90,69 @@
                                     That way the fallback will have less trouble rather then having to do a whole system design later
                                  -->
                             <label for ="eventTitle" class="form-label">Event Title</label>
-                                <input type="text" id="eventTitle" name="eventTitle" class="form-control"> 
+<input type="text" id="eventTitle" name="eventTitle" class="form-control" maxlength="60" pattern="[A-Za-z0-9 :,.'!\-]+" required>
+
+                                <!---https://www.w3schools.com/TAgs/att_input_pattern.asp-->
                                 <!-- Event Title, A title-->
                         </div>
                         <div class="form-group" id="event_info">
+                              <!-- Event Description, -->
                             <label for ="eventDesc" class="form-label">Description</label><!-- Event Description, What its About, Whats involved, Max 260 char -->
-                                <textarea id="eventDesc" name="eventDesc" maxlength="240" class="form-control"> </textarea>
-                            <label for ="eventDate" class="form-label">Date</label><!-- Event Date, The date of the event-->
-                                <input type="datetime-local" id="eventDate" name="eventDate" class="form-control"> 
-                            <!-- Event Date, The date of the event-->
-                            <span for="eventDate" class="form-label">Category</span>
-                                <?php array_to_radio('eventDate',$event_cat,true); ?> <!--Create the Radios for Event Category-->
+                                <textarea id="eventDesc" name="eventDesc" maxlength="240" class="form-control"required> </textarea>
+                             <!-- Event Date, The date of the event-->
+                                <label for ="eventDate" class="form-label">Date</label><!-- Event Date, The date of the event-->
+                                <input type="text" id="eventDate" 
+                                name="eventDate" 
+                                value="<?php echo $current_date?>"
+                                pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}*"
+                                placeholder="<?php $current_date?>"
+                                class="form-control"required> 
+                            
+            <!---{2} means exactly 2 digits ,[0-9]{2} 2 digit day
+            Need to add restrictions, IE 
+            ACCOUNT FOR LEAP YEAR,
+            DIFFERNET NUMBER DAYS OF MONTHS
+            SHE WILL TRY 200AD
+            You cannot account for the year after 9999
+            -->
+                                <!-- Event Category-->
+                            <span for="eventCat" class="form-label">Category</span>
+                                <?php array_to_radio('eventCat',$event_cat,'radio'); ?> <!--Create the Radios for Event Category-->
                             <!-- Registration Type -->
                             <span for ="regType" class="form-label">Registration Type</span>
-                                <?php array_to_radio('regType',$register_type,true);?> <!--Create the Radios for Event Category-->
+                                <?php array_to_radio('regType',$register_type,'radio');?> <!--Create the Radios for Event Category-->
                             <!--Available Features -->
                             <span for ="features" class="form-label">Available Features </span>
-                                <?php array_to_radio('features',$features,false);?> <!--Create the Radios for Event Category-->
-                            <!--Location AKA which building-->
+                                <?php array_to_radio('features',$features,'checkbox');?> <!--Create the Radios for Event Category-->
+                            <!--Easier to just hardcode Other-->
+                            <!---Refer to AI use for Error checking mismatch with trying to add a hidden section without Javascript,-->
+                            <label for="otherSelected" class="form-check-label">Other</label>
+                                <input name="other" type="checkbox" id="otherSelected" class="form-check-input" required>
+                                <div class="otherFeatureInput">
+                                    <label for="otherFeature" class="form-label">Describe Other Feature</label>
+                                    <input type="text" name="otherFeature" id="otherFeature" class="form-control" maxlength="60" required><!--Personally 60 seems reasonable-->
+                                </div>
+                                <!--Location AKA which building-->
                             <span for ="building" class="form-label">Location </span>
-                                <?php array_to_radio('building', $location, true);?> <!--Create the Radios for Event Category-->
+                            <select class="form-select">
+                                <option value='null' selected>---</option>
+                                <!--
+                                
+                                
+                                Note
+        
+                                MAKE SURE TO HANDLE THE DEFAULT NULL case
+                                --->
+                                
+                                <?php array_to_radio('building', $location, 'option');?> <!--Create the Radios for Event Category-->
+                            </select>
+<!--$input,'ID',5,'E[0-9]{4}'
 
+check_input($input,$title,$char_length=60,$pattern-->
+                    
                         </div>
-                       
+                       <input type="submit" value="Rese" class="btn">
+                       <input type="submit" value="Submit" class="btn">
                        
 
                 </div>
@@ -138,5 +182,7 @@ Could be interesting to tinker with a capacity  Event
 Have the capacitys for each event listed and tickets,
 How that would work and function etc
 
+
+TEH SELECT AND RADIO ISSUE NEED TO ADD CVRIT AT EL;AST ONE MSUT BE TRIGEGRED
 
 -->

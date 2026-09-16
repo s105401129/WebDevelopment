@@ -9,6 +9,15 @@ height:6rem;
 
 }
 
+/*Hidden unless trigegred other feature*/
+.otherFeatureInput{
+    display:none;
+    margin-top: 1rem;
+}
+/*Is otherfeatureselected? If yes then change display to visible*/
+#otherSelected:checked ~ .otherFeatureInput{
+    display:block;
+}
 /*Overwriting Bootstrap*/
 .form-label{
     display: block;
