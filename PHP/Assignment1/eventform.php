@@ -3,8 +3,8 @@
 $current_date = date('d/m/Y');
 $event_cat= array("Workshop","Seminar","Social","Lab","Tutorial","Lecture");
 $register_type= array("Free","Paid"); # ALT  $registration_type= "";
-$features= array("Catering","Certificate","Accessibility","WheelChair Accessible");#Use case if Other for trigger
-$location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
+$all_features= array("Catering","Certificate","Accessibility");#Use case if Other for trigger
+$locations=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buildings have each of the things, and ADD CRIT TO RESTRICT
   #Formerly Buildings
 
 
@@ -13,13 +13,13 @@ $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buil
     #For each item in array create a radio element
     foreach($array as $item){
         if ($type!= "option"){
-            echo "<label for='$item' class='form-check-label'>$item</label>";
+            echo "<label for=$item class='form-check-label'>$item</label>";
             echo "<input name=$element_id type=$type value=$item id =$item class='form-check-input' > ";}
         else{
             echo "<option value=$item>$item</option>";
         }}
     }
-    
+  
 
 
   #experiment
@@ -71,14 +71,14 @@ $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buil
 </ul>
             </nav>
         </header>
-        <div class="" id="event_info"><!-- Event_info--->
+        <div class="container my-4" ><!-- Event_info--->
             <form action="eventprocess.php" method="post">
-                <div class="event_info">
+            <div class="row g-4">
                        <!--Add reference to checker agaisnt database for current active events, ie ONLY ID,alt scenario, 2 events exist with same name different ID-->
-                        <div class="event_identifiers"> <!-- Event Identifiers -->
+                <div class="col-md-6"> <!-- Event Identifiers -->
                             <label for ="eventID" class="form-label">Event ID</label>
                                  
-                            <input type="text" id="eventID" name="eventID" maxlength="5" minlength="5" class="form-control" pattern="E[0-9]{4}" placeholder="E0001" required> <!--Add reference to checker agaisnt database for current active ids-->
+                            <input type="text" id="eventID" name="eventID" maxlength="5" minlength="5"  pattern="[eE[0-9]{4}" class="form-control" placeholder="E0001" required> <!--Add reference to checker agaisnt database for current active ids-->
                                 <!-- Event ID, E followed by 4 DIGITS, Add a EventElement for when 9999 events exist,  
                                  AutoGenerates is standard but assignment says Allow them to choose,
                                     MUST MAKE IT CHECK THAT Event ID DOES NOT ALREADY EXIST!!!!
@@ -90,52 +90,58 @@ $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buil
                                     That way the fallback will have less trouble rather then having to do a whole system design later
                                  -->
                             <label for ="eventTitle" class="form-label">Event Title</label>
-<input type="text" id="eventTitle" name="eventTitle" class="form-control" maxlength="60" pattern="[A-Za-z0-9 :,.'!\-]+" required>
+                            <input type="text" id="eventTitle" name="eventTitle" class="form-control" maxlength="60" pattern="[A-Za-z0-9 :,.'!\-]+" required>
 
                                 <!---https://www.w3schools.com/TAgs/att_input_pattern.asp-->
                                 <!-- Event Title, A title-->
-                        </div>
-                        <div class="form-group" id="event_info">
+                    </div>
+                <div class="col-md-6">
+                    <div class="form-group" >
                               <!-- Event Description, -->
                             <label for ="eventDesc" class="form-label">Description</label><!-- Event Description, What its About, Whats involved, Max 260 char -->
                                 <textarea id="eventDesc" name="eventDesc" maxlength="240" class="form-control"required> </textarea>
                              <!-- Event Date, The date of the event-->
-                                <label for ="eventDate" class="form-label">Date</label><!-- Event Date, The date of the event-->
-                                <input type="text" id="eventDate" 
-                                name="eventDate" 
-                                value="<?php echo $current_date?>"
-                                pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}*"
-                                placeholder="<?php $current_date?>"
-                                class="form-control"required> 
-                            
-            <!---{2} means exactly 2 digits ,[0-9]{2} 2 digit day
-            Need to add restrictions, IE 
-            ACCOUNT FOR LEAP YEAR,
-            DIFFERNET NUMBER DAYS OF MONTHS
-            SHE WILL TRY 200AD
-            You cannot account for the year after 9999
-            -->
+                        </div>
+        </div> 
+    </div> 
+    </div>
+        
+        <div class="container my-4" ><!-- Event_info--->  
+            <div class="row g-4">
+                <div class="col-md-6">        
                                 <!-- Event Category-->
-                            <span for="eventCat" class="form-label">Category</span>
-                                <?php array_to_radio('eventCat',$event_cat,'radio'); ?> <!--Create the Radios for Event Category-->
+                            <span for="eventCategory" class="form-label">Category</span>
+                                <?php array_to_radio('eventCategory',$event_cat,'radio'); ?> <!--Create the Radios for Event Category-->
                             <!-- Registration Type -->
-                            <span for ="regType" class="form-label">Registration Type</span>
-                                <?php array_to_radio('regType',$register_type,'radio');?> <!--Create the Radios for Event Category-->
+                            <span for ="registrationType" class="form-label">Registration Type</span>
+                                <?php array_to_radio('registrationType',$register_type,'radio');?> <!--Create the Radios for Event Category-->
                             <!--Available Features -->
-                            <span for ="features" class="form-label">Available Features </span>
-                                <?php array_to_radio('features',$features,'checkbox');?> <!--Create the Radios for Event Category-->
+                            <span for ="availableFeatures" class="form-label">Available Features </span>
+                                <?php array_to_radio('features',$all_features,'checkbox');?> <!--Create the Radios for Event Category-->
                             <!--Easier to just hardcode Other-->
                             <!---Refer to AI use for Error checking mismatch with trying to add a hidden section without Javascript,-->
                             <label for="otherSelected" class="form-check-label">Other</label>
-                                <input name="other" type="checkbox" id="otherSelected" class="form-check-input" required>
+                                <input name="other" type="checkbox" id="otherSelected" class="form-check-input" >
                                 <div class="otherFeatureInput">
                                     <label for="otherFeature" class="form-label">Describe Other Feature</label>
-                                    <input type="text" name="otherFeature" id="otherFeature" class="form-control" maxlength="60" required><!--Personally 60 seems reasonable-->
+                                    <input type="text" name="otherFeature" id="otherFeature" class="form-control" maxlength="60" ><!--Personally 60 seems reasonable-->
                                 </div>
-                                <!--Location AKA which building-->
-                            <span for ="building" class="form-label">Location </span>
-                            <select class="form-select">
-                                <option value='null' selected>---</option>
+                    
+            </div>
+           
+         <div class="col-md-6">
+                    <label for ="eventDate" class="form-label">Date</label><!-- Event Date, The date of the event-->
+                        <input type="text" id="eventDate" 
+                                name="eventDate" value="<?php echo $current_date?>"pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}*"
+                                placeholder="<?php $current_date?>" class="form-control"required> 
+                            
+            <!---{2} means exactly 2 digits ,[0-9]{2} 2 digit day
+            Need to add restrictions, IE 
+            ACCOUNT FOR LEAP YEAR,DIFFERNET NUMBER DAYS OF MONTHSSHE WILL TRY 200ADYou cannot account for the year after 9999
+            -->         <!--Location AKA which building-->
+                            <label for="location" class="form-label">Location </span>
+                            <select id="location" name="location" class="form-select"required>
+                                <option value="">---</option>
                                 <!--
                                 
                                 
@@ -143,24 +149,17 @@ $location=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which buil
         
                                 MAKE SURE TO HANDLE THE DEFAULT NULL case
                                 --->
-                                
-                                <?php array_to_radio('building', $location, 'option');?> <!--Create the Radios for Event Category-->
+                              
+                                <?php array_to_radio('location', $locations, 'option');?> <!--Create the Radios for Event Category-->
                             </select>
-<!--$input,'ID',5,'E[0-9]{4}'
-
-check_input($input,$title,$char_length=60,$pattern-->
-                    
                         </div>
-                       <input type="submit" value="Rese" class="btn">
-                       <input type="submit" value="Submit" class="btn">
+                       <button type="reset" value="Reset" class="btn btn-primary">Reset Form</button>
+                       <button type="submit" value="Submit" class="btn btn-secondary">Submit Form</button>
                        
 
-                </div>
-
-
-
-
-            </form>
+               </div>
+                    
+                </form>
         </div>
 
     </body>

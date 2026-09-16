@@ -17,8 +17,8 @@
         <meta name="keywords" content="HTML, CSS,PHP">
         <meta name="author" content="Joanne Davis">
         <!-- Styles and Links--->
-         <link rel="stylesheet" href="Assets/css/styles.css">
-         <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/059/656/570/non_2x/fresh-bagel-breakfast-bread-on-transparent-background-free-png.png" type="image/png">
+        <link rel="stylesheet" href="Assets/css/styles.css">
+        <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/059/656/570/non_2x/fresh-bagel-breakfast-bread-on-transparent-background-free-png.png" type="image/png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
 
     </head>
