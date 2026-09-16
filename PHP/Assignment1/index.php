@@ -38,12 +38,18 @@
   <div style="width: 100px; height: 100px; background-color: #eae497;"></div>
 
 
-        <script src="Assets/js/script.js">
+     
 
-
-        </script>
+ 
 
     </body>
+    <?php
+
+
+
+
+
+    ?>
 
 
 </DOCTYPE>
