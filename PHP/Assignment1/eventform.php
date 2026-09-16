@@ -15,9 +15,13 @@ $locations=array("BA","EN","ATC","AMDC","AS","LB","TA","TD");#Research which bui
         if ($type!= "option"){
             echo "<label for=$item class='form-check-label'>$item</label>";
             
-
-           echo "<input name=$element_id type=$type value=$item id=$item class='form-check-input' > ";}
+                
+            if ($type ==="checkbox"){
+                echo "<input name='" . $item . "[]' type=$type value=$item id=$item class='form-check-input' > ";
         
+            }
+            else{echo "<input name=$item type=$type value=$item id=$item class='form-check-input' > ";}
+        }
         else{
             echo "<option value=$item>$item</option>";
         }

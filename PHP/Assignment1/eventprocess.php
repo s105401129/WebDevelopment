@@ -6,7 +6,7 @@
   #Asked AI HOW TO VISUALISE THE SUBMISSION OF A POST INSTANCE VIA ECHO STATEMENTS
     echo "<pre>";
     print_r($_POST);
-    echo "<pre>";
+    echo "</pre>";
   #--------------------------------------JO END OF AI HELP
 
 
@@ -38,7 +38,7 @@ function clean_input($input) {
 
 #Faster then hardCoding each
 $variables=array("eventID","eventTitle","eventDesc","eventCategory","registrationType",
-"availableFeatures","eventDate","location");
+"features","eventDate","location");
 
 $cleaned_inputs = array();#
 foreach ($variables as $variable) {
